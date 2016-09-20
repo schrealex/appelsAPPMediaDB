@@ -1,0 +1,26 @@
+<h2>Movies</h2>
+<div class="row">
+    <div class="col-md-6">
+        <input type="text" [(ngModel)]="searchMovieTitle" (keyup.enter)="searchMovies()" placeholder="Movie title..." autofocus />
+        <button class="btn btn-primary btn-sm" (click)="searchMovies()">Find movies</button>
+        <button class="btn btn-default btn-sm" (click)="clearMovies()">Clear</button>
+        <table *ngIf="movies.length > 0" class="table table-striped">
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Title</th>
+                <th>Year</th>
+            </tr>
+            <tr *ngFor="let movie of movies" (click)="selectMovie(movie)">
+                <td><i [class.grey]="!movie.favorite" class="fa fa-heart" aria-hidden="true"></i></td>
+                <td><img *ngIf="movie.poster != 'N/A'" [src]="movie.poster" [alt]="movie.title" class="moviePoster"/></td>
+                <td class="movieTitle">{{ movie.title }}</td>
+                <td><span class="movieYear">{{ movie.year }}</span></td>
+            </tr>
+        </table>
+        <button class="btn btn-success btn-sm" (click)="gotoAddMovie()">Add movie</button>
+    </div>
+    <div class="col-md-6" *ngIf="selectedMovie">
+        <movie-detail [movie]="selectedMovie" (favorite)="setFavorite($event)"></movie-detail>
+    </div>
+</div>

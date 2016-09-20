@@ -1,0 +1,20 @@
+<div class="page-header">
+    <h1>Movie details</h1>
+</div>
+<div class="jumbotron" *ngIf="movieInformation">
+
+    <span class="favoriteLink" [class.grey]="!movieInformation.favorite" (click)="setFavorite(!movieInformation.favorite)"><i class="fa fa-heart" aria-hidden="true"></i></span>
+
+    <img src="{{ movieInformation.poster}}" class="moviePosterBig"/>
+
+    <h1>{{ movieInformation.title }} ({{ movieInformation.year}})</h1>
+
+    {{ movieInformation.plot }}
+
+    <h3>Actors</h3>
+    {{ movieInformation.actors}}
+    <h3>Director</h3>
+    {{ movieInformation.director }}
+    <h3>Writer</h3>
+    {{ movieInformation.writer }}
+</div>

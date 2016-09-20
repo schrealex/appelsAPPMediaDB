@@ -1,0 +1,9 @@
+<h2>Top Heroes</h2>
+<div class="grid grid-pad">
+    <div *ngFor="let movie of movies" (click)="gotoDetail(movie)" class="col-1-4">
+        <div class="module movie">
+            <img class="poster" [src]="movie.poster">
+            <span>{{movie.title}}</span>
+        </div>
+    </div>
+</div>
