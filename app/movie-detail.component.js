@@ -42,9 +42,10 @@ var MovieDetailComponent = (function () {
     ], MovieDetailComponent.prototype, "favorite", void 0);
     MovieDetailComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'movie-detail',
-            templateUrl: 'app/movie-detail.component.html',
-            styleUrls: ['./app/css/movie.detail.css']
+            templateUrl: 'movie-detail.component.html',
+            styleUrls: ['movie.detail.component.css']
         }), 
         __metadata('design:paramtypes', [movie_service_1.MovieService])
     ], MovieDetailComponent);

@@ -49,7 +49,8 @@ var MoviesComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'movies',
-            templateUrl: 'movies.component.html'
+            templateUrl: 'movies.component.html',
+            styleUrls: ['movies.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router, movie_service_1.MovieService])
     ], MoviesComponent);

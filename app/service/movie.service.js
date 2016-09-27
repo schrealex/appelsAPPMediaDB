@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require("@angular/http");
 require('rxjs/Rx');
+require('rxjs/add/operator/map');
+var Rx_1 = require('rxjs/Rx');
 var movie_1 = require('../model/movie');
 var movie_information_1 = require("../model/movie-information");
 var searchMoviesUrl = function (title) { return ("http://www.omdbapi.com/?s=" + title); };
@@ -30,12 +32,17 @@ var MovieService = (function () {
                 });
             }
             return result;
-        });
+        }).catch(this.handleError);
     };
     MovieService.prototype.getMovieInformation = function (movie) {
         console.log(movieInformationUrl(movie.imdbID));
         return this.http.get(movieInformationUrl(movie.imdbID)).map(function (result) { return result.json(); })
-            .map(function (m) { return new movie_information_1.MovieInformation(m.imdbID, m.Title, m.Year, m.Genre, m.Runtime, m.Poster, m.Director, m.Writer, m.Actors, m.Plot, m.Metascore, m.imdbRating, m.imdbVotes, m.Type, movie.favorite); });
+            .map(function (m) { return new movie_information_1.MovieInformation(m.imdbID, m.Title, m.Year, m.Genre, m.Runtime, m.Poster, m.Director, m.Writer, m.Actors, m.Plot, m.Metascore, m.imdbRating, m.imdbVotes, m.Type, movie.favorite); })
+            .catch(this.handleError);
+    };
+    MovieService.prototype.handleError = function (error) {
+        console.error(error);
+        return Rx_1.Observable.throw(error.json().error || 'Server error');
     };
     MovieService = __decorate([
         core_1.Injectable(), 

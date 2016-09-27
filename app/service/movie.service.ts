@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import { Http } from "@angular/http";
+import { Http, Response } from "@angular/http";
 
 import 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
 
 import {Movie} from '../model/movie';
@@ -29,13 +30,20 @@ export class MovieService {
                     }
                     return result;
                 }
-            );
+            ).catch(this.handleError);
     }
 
     getMovieInformation(movie:Movie): Observable<MovieInformation> {
         console.log(movieInformationUrl(movie.imdbID));
-        return this.http.get(movieInformationUrl(movie.imdbID)).map(result => <MovieInformation> result.json())
-        .map(m => new MovieInformation(m.imdbID, m.Title, m.Year, m.Genre, m.Runtime, m.Poster, m.Director,
-                m.Writer, m.Actors, m.Plot, m.Metascore, m.imdbRating, m.imdbVotes, m.Type, movie.favorite));
+
+        return this.http.get(movieInformationUrl(movie.imdbID)).map(result => result.json())
+            .map((m: any) => new MovieInformation(m.imdbID, m.Title, m.Year, m.Genre, m.Runtime, m.Poster, m.Director,
+            m.Writer, m.Actors, m.Plot, m.Metascore, m.imdbRating, m.imdbVotes, m.Type, movie.favorite))
+        .catch(this.handleError);
+    }
+
+    private handleError(error: Response) {
+        console.error(error);
+        return Observable.throw(error.json().error || 'Server error');
     }
 }

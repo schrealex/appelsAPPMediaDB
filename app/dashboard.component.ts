@@ -3,17 +3,18 @@ import { Router } from '@angular/router';
 
 import { Movie } from './model/movie';
 import { MovieService } from  './service/movie.service';
+import { Observable } from "rxjs";
 
 @Component({
     moduleId: module.id,
     selector: 'dashboard',
     templateUrl: 'dashboard.component.html',
-    styleUrls: ['dashboard.component.css']
+    // styleUrls: ['dashboard.component.css']
 })
 
 export class DashboardComponent implements OnInit
 {
-    movies: Movie[] = [];
+    movies: Observable<Movie[]>;
 
     constructor(private router: Router, private movieService: MovieService)
     {
@@ -22,7 +23,7 @@ export class DashboardComponent implements OnInit
 
     ngOnInit(): void
     {
-        this.movieService.searchMovies('Blair Witch').subscribe(movies => this.movies = movies);
+        this.movies = this.movieService.searchMovies('Blair Witch');
     }
 
     gotoDetail(movie: Movie): void

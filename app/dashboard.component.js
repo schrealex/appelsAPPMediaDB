@@ -15,11 +15,9 @@ var DashboardComponent = (function () {
     function DashboardComponent(router, movieService) {
         this.router = router;
         this.movieService = movieService;
-        this.movies = [];
     }
     DashboardComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.movieService.searchMovies('Blair Witch').subscribe(function (movies) { return _this.movies = movies; });
+        this.movies = this.movieService.searchMovies('Blair Witch');
     };
     DashboardComponent.prototype.gotoDetail = function (movie) {
         var link = ['/movie/detail', movie.title, movie.imdbID];
@@ -31,7 +29,6 @@ var DashboardComponent = (function () {
             moduleId: module.id,
             selector: 'dashboard',
             templateUrl: 'dashboard.component.html',
-            styleUrls: ['dashboard.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router, movie_service_1.MovieService])
     ], DashboardComponent);

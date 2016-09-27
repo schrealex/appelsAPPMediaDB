@@ -5,9 +5,10 @@ import { MovieInformation } from "./model/movie-information";
 import { MovieService } from './service/movie.service';
 
 @Component({
+    moduleId: module.id,
     selector: 'movie-detail',
-    templateUrl: 'app/movie-detail.component.html',
-    styleUrls: ['./app/css/movie.detail.css']
+    templateUrl: 'movie-detail.component.html',
+    styleUrls: ['movie.detail.component.css']
 })
 
 export class MovieDetailComponent
